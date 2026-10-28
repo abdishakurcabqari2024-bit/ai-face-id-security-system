@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: face-id-recognition-engine
+    env: docker
+    dockerfilePath: ./recognition_service/Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: RECOGNITION_SECRET_KEY
+        generateValue: true
+      - key: REQUIRE_AUTH
+        value: "false"

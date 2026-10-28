@@ -1,0 +1,56 @@
+// Prisma Schema for AI Face ID Biometric Security System
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id               String            @id @default(uuid())
+  name             String
+  role             String            @default("Employee") // Admin, Security_Officer, Employee, Contractor, Visitor
+  department       String            @default("Operations")
+  status           String            @default("ACTIVE")   // ACTIVE, SUSPENDED, REVOKED
+  consentGiven     Boolean           @default(true)
+  consentTimestamp DateTime          @default(now())
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  biometricProfile BiometricProfile?
+  accessLogs       AccessLog[]
+
+  @@index([status])
+}
+
+model BiometricProfile {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  templateHash     String   // SHA-256 hash of the enrolled biometric feature representation
+  sampleCount      Int      @default(1)
+  algorithmVersion String   @default("XGB_RF_v2.0_HOG_LBP")
+  enrolledAt       DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model AccessLog {
+  id               String   @id @default(uuid())
+  timestamp        DateTime @default(now())
+  userId           String?
+  user             User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userName         String
+  status           String   // ACCESS_GRANTED, ACCESS_DENIED, SPOOF_ATTACK, UNKNOWN_INTRUDER
+  confidence       Float
+  rfConfidence     Float
+  xgbConfidence    Float
+  livenessScore    Float
+  livenessVerified Boolean
+  modelsAgree      Boolean
+  clientIp         String?
+  notes            String?
+
+  @@index([timestamp])
+  @@index([status])
+}

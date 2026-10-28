@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Next.js Build Outputs
+.next/
+out/
+build/
+dist/
+
+# Python Artifacts & Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+
+# Biometric Datasets & Large Binary Models
+# (These must NOT be committed to git or Vercel deployment repository)
+data/faces/
+data/cache/
+saved_models/*.joblib
+saved_models/*.json
+saved_models/*.bin
+archive/
+dataset_prepared/
+
+# Forensic Snapshots & Local Logs
+logs/
+*.db
+*.sqlite
+*.csv
+*.log
+
+# Environment & Secrets
+.env
+.env*.local
+!.env.example
+
+# OS Metadata
+.DS_Store
+Thumbs.db
