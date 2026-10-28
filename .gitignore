@@ -21,13 +21,9 @@ venv/
 ENV/
 .venv/
 
-# Biometric Datasets & Large Binary Models
-# (These must NOT be committed to git or Vercel deployment repository)
+# Biometric Datasets & Cache
 data/faces/
 data/cache/
-saved_models/*.joblib
-saved_models/*.json
-saved_models/*.bin
 archive/
 dataset_prepared/
 
