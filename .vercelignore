@@ -1,0 +1,21 @@
+# ============================================================
+# .vercelignore - Prevent Vercel from bundling heavy Python ML files
+# ============================================================
+
+# Standalone Python Microservice (Deployed to Render/Railway via Docker)
+recognition_service/
+requirements.txt
+
+# Local Python Scripts & Models
+*.py
+run.bat
+saved_models/
+data/
+logs/
+__pycache__/
+
+# Documentation & Tests
+scripts/
+tests/
+test_system.py
+train_kaggle.py
